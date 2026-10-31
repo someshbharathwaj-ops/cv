@@ -100,3 +100,13 @@ class nnUNetTrainerSwinUMambaScratch(nnUNetTrainer):
         else:
             deep_supervision_scales = None  # for train and val_transforms
         return deep_supervision_scales
+
+    def _set_batch_size_and_oversample(self):
+        super()._set_batch_size_and_oversample()
+
+        if self.configuration_name == "2d":
+            self.batch_size = 10
+
+        self.print_to_log_file(
+            f"Effective batch size: {self.batch_size}"
+        )
