@@ -6,7 +6,7 @@ EVAL_METRIC_PATH="data/nnUNet_results/Dataset702_AbdomenMR/${MAMBA_MODEL}__nnUNe
 GPU_ID="0,1"
 
 # train
-CUDA_VISIBLE_DEVICES=${GPU_ID} nnUNetv2_train 702 2d all -tr ${MAMBA_MODEL} -num_gpus 2 &&
+CUDA_VISIBLE_DEVICES=${GPU_ID} nnUNetv2_train 702 2d all -tr ${MAMBA_MODEL} -num_gpus 1 &&
 
 echo "Predicting..." &&
 CUDA_VISIBLE_DEVICES=${GPU_ID} nnUNetv2_predict \
