@@ -1,0 +1,23 @@
+{
+    "case_id": "amos_7261",
+    "slice_index": 38,
+    "target_organ_id": 12,
+    "target_organ_name": "Duodenum",
+    "attribution_method": "gradcam",
+    "target_layer": "decoder1",
+    "target_score_mode": "pred_mask",
+    "checkpoint_path": "C:\\Users\\SOMESH BHARATHWAJ\\Documents\\Swin-UMamba\\data\\nnUNet_results\\Dataset702_AbdomenMR\\nnUNetTrainerSwinUMambaScratch__nnUNetPlans__2d\\fold_0\\checkpoint_best.pth",
+    "raw_min": 0.0,
+    "raw_max": 1.0,
+    "peak_coordinates": [
+        160,
+        158
+    ],
+    "mean_normalized_activation": 0.0008250089595094323,
+    "normalization": "min_max_0_to_1",
+    "files": {
+        "single_panel_heatmap": "amos_7261_z38_duodenum_heatmap.png",
+        "four_panel_figure": "amos_7261_z38_duodenum_four_panel.png",
+        "raw_activation_npy": "amos_7261_z38_duodenum_activation.npy"
+    }
+}
