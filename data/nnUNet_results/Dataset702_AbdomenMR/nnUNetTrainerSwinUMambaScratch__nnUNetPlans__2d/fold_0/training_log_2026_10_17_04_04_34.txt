@@ -1,0 +1,43 @@
+2026-10-17 04:04:34.979444: Effective batch size: 20 
+
+#######################################################################
+Please cite the following paper when using nnU-Net:
+Isensee, F., Jaeger, P. F., Kohl, S. A., Petersen, J., & Maier-Hein, K. H. (2021). nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods, 18(2), 203-211.
+#######################################################################
+ 
+2026-10-17 04:04:44.852722: Using optimizer AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-05
+    foreach: None
+    fused: None
+    initial_lr: 0.0001
+    lr: 0.0001
+    maximize: False
+    weight_decay: 0.05
+) 
+2026-10-17 04:04:44.852904: Using scheduler <torch.optim.lr_scheduler.CosineAnnealingLR object at 0x2aabf7e83e20> 
+
+This is the configuration used by this training:
+Configuration name: 2d
+ {'data_identifier': 'nnUNetPlans_2d', 'preprocessor_name': 'DefaultPreprocessor', 'batch_size': 30, 'patch_size': [320, 320], 'median_image_size_in_voxels': [258.0, 319.0], 'spacing': [1.1875, 1.1875], 'normalization_schemes': ['ZScoreNormalization'], 'use_mask_for_norm': [False], 'UNet_class_name': 'PlainConvUNet', 'UNet_base_num_features': 32, 'n_conv_per_stage_encoder': [2, 2, 2, 2, 2, 2, 2], 'n_conv_per_stage_decoder': [2, 2, 2, 2, 2, 2], 'num_pool_per_axis': [6, 6], 'pool_op_kernel_sizes': [[1, 1], [2, 2], [2, 2], [2, 2], [2, 2], [2, 2], [2, 2]], 'conv_kernel_sizes': [[3, 3], [3, 3], [3, 3], [3, 3], [3, 3], [3, 3], [3, 3]], 'unet_max_num_features': 512, 'resampling_fn_data': 'resample_data_or_seg_to_shape', 'resampling_fn_seg': 'resample_data_or_seg_to_shape', 'resampling_fn_data_kwargs': {'is_seg': False, 'order': 3, 'order_z': 0, 'force_separate_z': None}, 'resampling_fn_seg_kwargs': {'is_seg': True, 'order': 1, 'order_z': 0, 'force_separate_z': None}, 'resampling_fn_probabilities': 'resample_data_or_seg_to_shape', 'resampling_fn_probabilities_kwargs': {'is_seg': False, 'order': 1, 'order_z': 0, 'force_separate_z': None}, 'batch_dice': True} 
+ 
+These are the global plan.json settings:
+ {'dataset_name': 'Dataset702_AbdomenMR', 'plans_name': 'nnUNetPlans', 'original_median_spacing_after_transp': [3.0, 1.1875, 1.1875], 'original_median_shape_after_transp': [72, 242, 319], 'image_reader_writer': 'SimpleITKIO', 'transpose_forward': [0, 1, 2], 'transpose_backward': [0, 1, 2], 'experiment_planner_used': 'ExperimentPlanner', 'label_manager': 'LabelManager', 'foreground_intensity_properties_per_channel': {'0': {'max': 3284530.75, 'mean': 24773.435546875, 'median': 370.0, 'min': 0.0, 'percentile_00_5': 17.0, 'percentile_99_5': 1460278.625, 'std': 179360.25}}} 
+ 
+2026-10-17 04:04:44.854489: unpacking dataset... 
+2026-10-17 04:04:48.640539: unpacking done... 
+2026-10-17 04:04:48.641494: do_dummy_2d_data_aug: False 
+2026-10-17 04:04:48.642899: Using splits from existing split file: /home/y_rajeshwar/akhils_hpc/swimumamba_cv/Swin-UMamba/data/nnUNet_preprocessed/Dataset702_AbdomenMR/splits_final.json 
+2026-10-17 04:04:48.643294: The split file contains 5 splits. 
+2026-10-17 04:04:48.643398: Desired fold for training: 0 
+2026-10-17 04:04:48.643487: This split has 48 training and 12 validation cases. 
+2026-10-17 04:04:48.658377: Unable to plot network architecture: 
+2026-10-17 04:04:48.658465: No module named 'hiddenlayer' 
+2026-10-17 04:04:48.664709: Unfreezing the encoder 
+2026-10-17 04:04:48.667204:  
+2026-10-17 04:04:48.667264: Epoch 0 
+2026-10-17 04:04:48.667367: Current learning rate: 0.0001 
