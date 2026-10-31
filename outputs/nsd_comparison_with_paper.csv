@@ -1,0 +1,11 @@
+Model,Pretraining,Paper_DSC,Paper_NSD
+UNETR,None,0.5747,0.6309
+SwinUNETR,None,0.7028,0.7669
+nnFormer,None,0.7279,0.7963
+SegResNet,None,0.7317,0.8034
+nnU-Net (2D),None,0.745,0.8153
+U-Mamba_Bot,None,0.7588,0.8285
+U-Mamba_Enc,None,0.7625,0.8327
+Swin-UMamba (Scratch),None (Paper),0.7054,0.7647
+"This Run (1000 Epochs, Fold 0)",None (Ours),0.7358,0.8016
+Swin-UMamba (Pretrained),ImageNet (Paper),0.776,0.8421

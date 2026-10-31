@@ -1,0 +1,11 @@
+Experiment: Dataset702_AbdomenMR
+Trainer: nnUNetTrainerSwinUMambaScratch
+Configuration: 2d, fold 0
+Training epochs: 1000
+Test cases: 50
+Mean foreground Dice: 0.9241
+Mean foreground IoU: 0.8652
+
+Checkpoint files:
+-rw-rw-r-- 1 y_rajeshwar y_rajeshwar 687M Oct 18 20:09 data/nnUNet_results/Dataset702_AbdomenMR/nnUNetTrainerSwinUMambaScratch__nnUNetPlans__2d/fold_0/checkpoint_best.pth
+-rw-rw-r-- 1 y_rajeshwar y_rajeshwar 687M Oct 19 07:12 data/nnUNet_results/Dataset702_AbdomenMR/nnUNetTrainerSwinUMambaScratch__nnUNetPlans__2d/fold_0/checkpoint_final.pth
