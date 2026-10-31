@@ -111,6 +111,79 @@ Here  `MODEL_NAME` can be:
 
 You can download our model checkpoints [here](https://drive.google.com/drive/folders/1zOt0ZfQPjoPdY37NfLKevYs4x5eClThN?usp=sharing).
 
+## 🔬 Model Focus Heatmaps (Interpretability & Explainability)
+
+This repository includes a publication-quality model interpretability suite designed specifically for Swin-UMamba on multi-organ abdominal MRI segmentation (`Dataset702_AbdomenMR`). It allows researchers to compute and visualize **where the trained Swin-UMamba network focuses its activations** when making class-specific organ predictions.
+
+### Key Features
+- **Class-Specific Attribution**: Explanations can be targeted to any of the 13 abdominal organ classes (e.g., Liver, Pancreas, Spleen, Right Adrenal Gland, Duodenum, Kidneys).
+- **Supported Methods**:
+  - `gradcam`: Gradient-weighted Class Activation Mapping targeting intermediate decoder feature layers.
+  - `gradcam++`: Higher-order gradient-weighted CAM providing sharper pixel-level localization for small or dispersed anatomical structures.
+  - `activation`: Channel-averaged raw forward activations across the intermediate layer.
+- **Scientific Figure Generation**:
+  - **Single-panel Focus Heatmap**: Grayscale MRI with translucent turbo heatmap overlay, target organ contour, and peak focus marker.
+  - **Four-panel Research Figure**:
+    - **Panel A**: Grayscale input MRI with anatomical orientation markers (A, P, R, L).
+    - **Panel B**: Class-specific Model Focus Heatmap with relative activation colorbar.
+    - **Panel C**: Multi-organ ground-truth segmentation masks.
+    - **Panel D**: Model prediction overlay with target organ outline and peak focus alignment contour.
+- **Reproducible Exports**: Automatically exports high-resolution 300 DPI PNG figures, raw normalized 2D numpy arrays (`.npy`), and structured provenance records (`.json`).
+
+### Quick Start: Generate Heatmap via CLI
+
+Run the standalone CLI script from the repository root:
+
+```bash
+# Generate focus heatmap for Liver (Organ ID 1) on slice z=38
+python generate_model_focus_heatmap.py --case amos_7261 --slice 38 --organ 1
+
+# Generate focus heatmap for Pancreas (Organ ID 4)
+python generate_model_focus_heatmap.py --case amos_7261 --slice 38 --organ pancreas
+
+# Generate focus heatmap for Right Adrenal Gland using Grad-CAM++
+python generate_model_focus_heatmap.py --case amos_7261 --slice 38 --organ "Right Adrenal Gland" --method gradcam++
+
+# Run on a different test case and slice
+python generate_model_focus_heatmap.py --case amos_7016 --slice 37 --organ spleen
+```
+
+### CLI Options
+
+| Argument | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `--case` | `str` | `amos_7261` | Case identifier (e.g. `amos_7261`, `amos_7016`). |
+| `--slice` | `int` | `38` | Axial slice index ($z$). |
+| `--organ` | `str/int` | `1` (Liver) | Target organ by name or ID (1: Liver, 2: R Kidney, 3: Spleen, 4: Pancreas, 5: Aorta, 6: IVC, 7: R Adrenal, 8: L Adrenal, 9: Gallbladder, 10: Esophagus, 11: Stomach, 12: Duodenum, 13: L Kidney). |
+| `--method` | `str` | `gradcam` | Attribution method: `gradcam`, `gradcam++`, or `activation`. |
+| `--layer` | `str` | `decoder1` | Target intermediate layer probed (`decoder1` or `decoder2`). |
+| `--score_mode` | `str` | `pred_mask` | Target score pooling: `pred_mask`, `gt_mask`, or `mean`. |
+| `--checkpoint` | `path` | Best ckpt | Path to trained `.pth` checkpoint. |
+| `--output_dir` | `path` | `outputs/model_focus_heatmaps` | Directory where figures and data are saved. |
+| `--device` | `str` | `cuda` / auto | Compute device (`cuda` or `cpu`). |
+| `--dpi` | `int` | `300` | Output image resolution for publication / presentations. |
+
+### Batch Multi-Organ Comparison Suite
+
+To generate heatmaps across multiple test cases, organs, and attribution methods simultaneously:
+
+```bash
+python scripts/batch_generate_heatmaps.py
+```
+
+### Outputs & File Structure
+
+Generated artifacts are saved directly to `outputs/model_focus_heatmaps/`:
+- `<case>_z<slice>_<organ>_heatmap.png`: High-resolution standalone focus heatmap overlay.
+- `<case>_z<slice>_<organ>_four_panel.png`: 4-panel publication-ready comparison figure.
+- `<case>_z<slice>_<organ>_activation.npy`: Raw normalized activation array ($[0, 1]$).
+- `<case>_z<slice>_<organ>_metadata.json`: Full execution metadata (peak coordinates, layer, method, checkpoint).
+
+### Scientific Interpretation & Methodological Notes
+> [!IMPORTANT]
+> **Attribution vs. Internal Attention**: Grad-CAM computes the gradient-weighted linear combination of forward feature maps with respect to a specific organ's output logits:
+> $$L_{\text{Grad-CAM}}^c = \text{ReLU}\left(\sum_k \alpha_k^c A^k\right), \quad \alpha_k^c = \frac{1}{Z}\sum_i \sum_j \frac{\partial S_c}{\partial A_{i,j}^k}$$
+> It highlights regions in the feature representations that positively contribute to maximizing the target organ's predicted logits. It does **not** measure cognitive or transformer self-attention, nor does it guarantee clinical causal sufficiency. A high activation region indicates that features at that location were influential under the linear approximation of the selected layer.
 
 ## 🙋‍♀️ Feedback and Contact
 
