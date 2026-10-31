@@ -1,0 +1,16 @@
+# 3D Slicer Color Table File
+# Index LabelName R G B A
+0 Background 0 0 0 0
+1 Liver 46 158 43 255
+2 Right_Kidney 31 120 181 255
+3 Spleen 148 103 189 255
+4 Pancreas 255 127 13 255
+5 Aorta 214 38 38 255
+6 Inferior_Vena_Cava 23 190 207 255
+7 Right_Adrenal_Gland 227 120 194 255
+8 Left_Adrenal_Gland 140 86 74 255
+9 Gallbladder 188 189 34 255
+10 Esophagus 128 128 128 255
+11 Stomach 255 187 120 255
+12 Duodenum 174 199 232 255
+13 Left_Kidney 57 59 121 255

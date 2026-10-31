@@ -1,0 +1,7 @@
+# 3D Slicer Color Table File
+# Index LabelName R G B A
+0 Background 0 0 0 0
+1 Correct_Classification 46 140 87 255
+2 False_Negative 0 114 178 255
+3 False_Positive 213 94 0 255
+4 Inter_Organ_Confusion 230 159 0 255

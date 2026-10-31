@@ -1,0 +1,102 @@
+================================================================================
+3D SLICER EXPLORATION MANUAL: AMOS_7261 SPATIAL SEGMENTATION ERROR MAP
+Model: Swin-UMamba (Dataset702_AbdomenMR, Fold 0, Epoch 1000)
+================================================================================
+
+1. OVERVIEW OF EXPORTED FILES
+-----------------------------
+This directory contains fully validated, geometry-preserving medical imaging assets
+designed for interactive inspection in 3D Slicer (version 4.11 / 5.0+):
+
+  1. amos_7261_image.nii.gz
+     - Original T2/T1 abdominal MRI image volume (320 x 260 x 72 voxels).
+     - Physical spacing: 1.375 x 1.375 x 3.000 mm.
+
+  2. amos_7261_error_map.seg.nrrd
+     - Native 3D Slicer Segmentation containing mutually exclusive error segments:
+       * Correct Classification (TP):     Muted Green  (Label 1)
+       * False Negative / Missed Organ:   Royal Blue   (Label 2)
+       * False Positive / Spurious Organ: Vermilion Red (Label 3)
+       * Inter-Organ Label Confusion:     Amber Orange (Label 4)
+
+  3. amos_7261_error_map.nii.gz
+     - Standard integer labelmap format for cross-platform tools.
+     - Pair with 'amos_7261_error_map.ctbl' for automatic coloring.
+
+  4. amos_7261_ground_truth.seg.nrrd & amos_7261_ground_truth.nii.gz
+     - Reference multi-organ segmentations (13 abdominal organs).
+
+  5. amos_7261_prediction.seg.nrrd & amos_7261_prediction.nii.gz
+     - Raw Swin-UMamba multi-organ predicted segmentations.
+
+  6. amos_7261_error_statistics.csv
+     - Comprehensive quantitative voxel counts and category proportions.
+
+  7. load_amos_7261_in_slicer.py
+     - 1-Click Slicer Python script to automate scene loading.
+
+
+2. METHOD A: ONE-CLICK AUTOMATED LOADING (RECOMMENDED)
+------------------------------------------------------
+1. Open 3D Slicer.
+2. Open the Python Interactor:
+   - Click the Python icon on the toolbar, or press: Ctrl + ` (backtick) or View -> Python Interactor.
+3. Open the file 'load_amos_7261_in_slicer.py' in any text editor, copy its contents,
+   paste them into Slicer's Python console, and press Enter.
+4. The entire scene will configure automatically:
+   - MRI background loaded.
+   - Spatial Error Map loaded as a visible overlay.
+   - Red slice view positioned precisely at slice z=38 (+63.67 mm).
+
+
+3. METHOD B: MANUAL DRAG-AND-DROP LOADING
+-----------------------------------------
+1. Open 3D Slicer.
+2. Drag and drop the following files into the Slicer window:
+   - amos_7261_image.nii.gz        -> Description: "Volume"
+   - amos_7261_error_map.seg.nrrd  -> Description: "Segmentation"
+   - amos_7261_ground_truth.seg.nrrd -> Description: "Segmentation"
+   - amos_7261_prediction.seg.nrrd   -> Description: "Segmentation"
+3. Click "OK" in the Add Data dialog.
+4. Slicer will automatically bind the segment names and colors defined in the NRRD header.
+
+
+4. NAVIGATING TO SLICE z=38
+---------------------------
+- The axial slice analyzed in Heatmap B corresponds to array index z = 38 (0-indexed).
+- In 3D Slicer, slice positions are defined in physical millimeter space (RAS).
+- Given:
+    Origin Z = -50.33 mm
+    Spacing Z = 3.00 mm
+    Slice 38 Z = -50.33 + (38 * 3.0) = +63.67 mm.
+- In the Red (Axial) slice viewer slider bar at the top, adjust the offset slider to
+  approximately +63.7 mm (or type 63.67 into the slider field) to view slice z=38.
+
+
+5. INTERACTIVE 3D & 2D INSPECTION TECHNIQUES
+--------------------------------------------
+A. Toggling Segmentation Layers:
+   - Open Modules -> "Data".
+   - Under the MRML tree, expand the Subject hierarchy.
+   - Click the eye icon next to:
+     * 'amos_7261_Spatial_Error_Map' to inspect errors.
+     * 'amos_7261_Ground_Truth' to inspect true organ anatomy.
+     * 'amos_7261_Prediction' to inspect model predictions.
+
+B. Adjusting Opacity:
+   - In Modules -> "Segmentations", under "Display", adjust the "Layer opacity"
+     slider (recommended: 0.60 to 0.75) so the underlying MRI tissue contrast
+     shows through the error segmentation.
+
+C. 3D Surface Mesh Generation:
+   - In Modules -> "Segmentations", click "Show 3D" in the Display section.
+   - Slicer will convert the voxel segments into 3D polygon meshes in real-time.
+   - Rotate the 3D view to inspect the spatial distribution of boundary false
+     positives and missed regions relative to the whole organ volumes.
+
+D. Inspecting Confusion Regions:
+   - Look at the amber (Inter-Organ Confusion) voxels.
+   - In amos_7261, confusion voxels occur predominantly at the anatomical junction
+     between the gastric antrum (stomach) and left hepatic lobe, and between the
+     pancreatic head and duodenum.
+================================================================================
